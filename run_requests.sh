@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 request() {
-  curl -s -o /dev/null -I  -w "%{http_code}\n" 'http://localhost:4040/api' -H 'token=Bearer%;' --compressed
+  curl -s -o /dev/null -I  -w "%{http_code}\n" 'http://localhost:4040/api' \
+  -H 'Cookie: token=Bearer'$1 --compressed
 }
 
 requests () {
-  for i in `seq 1 $1`
+  for i in `seq 1 5`
     do
-      request $i &
+      request $1 &
     done
-  wait
 }
-time requests $1
+requests 1
+requests 1
+wait
