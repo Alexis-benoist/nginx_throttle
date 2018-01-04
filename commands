@@ -1,0 +1,5 @@
+limit_req_zone $cookie_token zone=req_zone:10m rate=30r/s;
+limit_req zone=req_zone:10m burst=30 nodelay;
+
+cd /etc/nginx/sites-enabled/
+sudo service nginx restart
